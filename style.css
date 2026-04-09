@@ -55,7 +55,15 @@ body {
   background: var(--white);
   line-height: 1.65;
 }
-
+.hero-logos {
+  margin-top: 2rem;
+}
+.hero-logos img {
+  max-width: 480px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
 h1, h2, h3 {
   font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
   line-height: 1.25;
