@@ -55,9 +55,9 @@ function updateActiveNavLink() {
   });
 }
 
-/* ── State of the Art: pillar tabs ── */
+/* ── Related Work: filter buttons ── */
 const sotaTabs = document.querySelectorAll('.sota-tab');
-const sotaRows = document.querySelectorAll('.sota-table tbody tr');
+const rwCards  = document.querySelectorAll('.rw-card');
 
 sotaTabs.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -65,9 +65,9 @@ sotaTabs.forEach(tab => {
     tab.classList.add('active');
 
     const pillar = tab.dataset.pillar;
-    sotaRows.forEach(row => {
-      const show = pillar === 'all' || row.dataset.pillar === pillar;
-      row.classList.toggle('hidden', !show);
+    rwCards.forEach(card => {
+      const show = pillar === 'all' || card.dataset.pillar === pillar;
+      card.classList.toggle('hidden', !show);
     });
   });
 });
@@ -91,7 +91,7 @@ pubFilters.forEach(filter => {
 
 /* ── Smooth reveal on scroll (IntersectionObserver) ── */
 const revealTargets = document.querySelectorAll(
-  '.pillar-card, .pub-card, .tool-card, .team-card, .stat, .interconnect-box'
+  '.pillar-card, .pub-card, .tool-card, .team-card, .stat, .interconnect-box, .contribution-item, .pillar-side-card'
 );
 
 const revealObserver = new IntersectionObserver((entries) => {
