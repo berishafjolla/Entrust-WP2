@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Data Governance Work Package - eNTRUST Doctoral Network, Horizon Europe MSCA">
-  <title>Data Governance | ENTRUST Doctoral Network</title>
+  <title>Data Governance Practices for agri data sharing | ENTRUST Doctoral Network</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +16,9 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <div class="nav-brand">
-        <span class="brand-accent">ENTRUST
+        <span class="brand-accent">E</span>NTRUST
         <span class="brand-sep">|</span>
-        <span class="brand-sub">Data Governance Practices</span>
+        <span class="brand-sub">Data Governance Pactices</span>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
@@ -26,7 +26,11 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#research">Research</a></li>
-        <li><a href="#sota">State of the Art</a></li>
+        <li><a href="#pillar-sovereignty">Sovereignty</a></li>
+        <li><a href="#pillar-trust">Trust</a></li>
+        <li><a href="#pillar-cyber">Cybersecurity</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#sota">Related Work</a></li>
         <li><a href="#publications">Publications</a></li>
         <li><a href="#tools">Tools</a></li>
         <li><a href="#team">Team</a></li>
@@ -53,15 +57,15 @@
       <div class="hero-pillars">
         <div class="pillar-chip sovereignty">
           <span class="chip-icon">&#128274;</span>
-          <span>A Sovereign Data Sharing Platform for Agriculture Based on Digitally Enforced Usage Control Policies</span>
+          <span>Data Sovereignty and usage control</span>
         </div>
         <div class="pillar-chip trust">
           <span class="chip-icon">&#129309;</span>
-          <span>Mechanisms to Facilitate Trustworthiness of Agricultural Data Sharing</span>
+          <span>Trust &amp; Trustworthiness</span>
         </div>
         <div class="pillar-chip cyber">
           <span class="chip-icon">&#128737;</span>
-          <span>Cyber Risk Assessment Framework for Distributed Agri-Data Ecosystems</span>
+          <span>Cybersecurity and risk assessment</span>
         </div>
       </div>
       <div class="hero-actions">
@@ -84,7 +88,7 @@
   <!-- ── ABOUT ── -->
   <section class="section" id="about">
     <div class="container">
-      <div class="section-label">Work Package</div>
+      <div class="section-label">Work Package 2</div>
       <h2>About This Research</h2>
       <div class="about-grid">
         <div class="about-text">
@@ -95,8 +99,7 @@
             in data governance for agricultural ecosystems.
           </p>
           <p>
-            Agricultural data sharing presents unique governance challenges: farmers own their
-            data but lack the infrastructure and legal frameworks to fully exercise that
+            Agricultural data sharing presents unique governance challenges: farmers lack the infrastructure and legal frameworks to fully exercise that
             ownership. Our research develops formal, implementable solutions grounded in three
             complementary and interconnected pillars — sovereignty, trust, and security.
           </p>
@@ -141,7 +144,12 @@
           <div class="pillar-tag">Pillar 1</div>
           <h3>Data Sovereignty</h3>
           <p>
-            <h4>Problem</h4>Agricultural data flows from IoT sensors, tractors, and drones directly into platforms controlled by agri-tech companies. By the time a farmer realises their data has been shared, aggregated, or sold, there is nothing technically stopping it. Existing legal frameworks like the EU Data Act deliberately avoid defining any clear rights over this data, so governance defaults to contracts — EULAs and data-sharing agreements that are typically long, written at university reading level, and drafted entirely by the technology provider. <h4>Objective</h4>This research aims to design a sovereign data sharing platform for agriculture where usage control policies are digitally enforced, not merely written in a contract. The platform architecture itself becomes the governance mechanism.
+            Investigates formal mechanisms for enforcing data ownership rights throughout the
+            agricultural data lifecycle. Research centres on sovereignty invariants —
+            mathematical properties that guarantee a data owner's rights are preserved
+            regardless of how data flows through digital ecosystems. Includes an open-source
+            Python library (<em>sovereignty-chain</em>) implementing cryptographic policy
+            enforcement and differential privacy for agricultural data exports.
           </p>
           <div class="pillar-topics">
             <span>Sovereignty Invariants</span>
@@ -152,7 +160,7 @@
             <span>Audit Chains</span>
           </div>
           <div class="pillar-researcher">
-            <strong>DC05</strong> &nbsp;·&nbsp; Fjolla Berisha &nbsp;·&nbsp; [Institution], Ireland
+            <strong>ESR 1</strong> &nbsp;·&nbsp; Fjolla Berisha &nbsp;·&nbsp; [Institution], Ireland
           </div>
         </div>
 
@@ -161,7 +169,7 @@
           <div class="pillar-tag">Pillar 2</div>
           <h3>Trust &amp; Trustworthiness</h3>
           <p>
-           <h4>Problem</h4>Farmers across multiple studies express a consistent reluctance to share their data, not because they misunderstand the technology, but because they have no visibility into what happens to it after it leaves their hands. <h4>Objective</h4>Develops formal frameworks for evaluating and communicating the trustworthiness of
+            Develops formal frameworks for evaluating and communicating the trustworthiness of
             actors and systems in agricultural data sharing networks. Research addresses how
             farmers can make informed, evidence-based decisions about who to share their data
             with and under what conditions — grounded in established trust theory and modern
@@ -185,7 +193,7 @@
           <div class="pillar-tag">Pillar 3</div>
           <h3>Cybersecurity</h3>
           <p>
-            <h4>Problem<h4>Agriculture 4.0 stacks together technologies that were each designed for other contexts: IoT devices from industrial settings, cloud platforms from enterprise IT, wireless communications from telecommunications. The interconnection of these systems creates a distributed attack surface where a compromised soil sensor, a misconfigured API endpoint, or a spoofed identity can cascade through the entire data ecosystem. <h4>Objectives<h4>Examines threat models specific to agricultural data ecosystems and develops
+            Examines threat models specific to agricultural data ecosystems and develops
             security primitives that protect the integrity, confidentiality, and availability
             of agricultural data throughout the sharing lifecycle — from IoT field sensor to
             analytical platform. Applies the STRIDE methodology adapted to the constraints of
@@ -229,14 +237,256 @@
     </div>
   </section>
 
-  <!-- ── STATE OF THE ART ── -->
+  <!-- ── PILLAR 1: DATA SOVEREIGNTY ── -->
+  <section class="section pillar-deep sovereignty-deep" id="pillar-sovereignty">
+    <div class="container">
+      <div class="section-label pillar-label-sovereignty">Pillar 1 &nbsp;·&nbsp; Deep Dive</div>
+      <div class="pillar-deep-header">
+        <div class="pillar-deep-icon">&#128274;</div>
+        <div>
+          <h2>Data Sovereignty &amp; Usage Control</h2>
+          <p class="pillar-deep-lead">
+            Formal mechanisms for enforcing data sovereignty rights throughout the agricultural data lifecycle —
+            ensuring that farmers retain meaningful control over how their data is used, shared, and exchanged.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-deep-grid">
+        <div class="pillar-deep-main">
+          <h3>Research Motivation</h3>
+          <p>
+            Agricultural data is generated continuously by precision farming equipment, remote sensors,
+            and third-party platforms. While farmers are legally recognised as data subjects under GDPR,
+            the technical architecture of most agri-data platforms provides no enforceable mechanism for
+            exercising those rights after data is shared. A farmer may consent to data sharing, yet have
+            no way to verify whether their conditions are honoured downstream.
+          </p>
+          <p>
+            This pillar develops <strong>sovereignty invariants</strong> — formally specified properties
+            that, once embedded in a data architecture, guarantee sovereignty rights are preserved regardless
+            of how data flows, is transformed, or is re-shared across ecosystem actors.
+          </p>
+
+          <h3>Methodology</h3>
+          <p><strong>Design Science Research (DSR)</strong></p>
+
+
+        </div>
+
+        <div class="pillar-deep-side">
+          <div class="pillar-side-card sovereignty-side">
+            <h4>Researcher</h4>
+            <div class="side-researcher">
+              <div class="team-avatar av-sovereignty" style="margin: 0 0 0.75rem;">FB</div>
+              <strong>Fjolla Berisha</strong>
+              <span>ESR 1 &nbsp;·&nbsp; [Institution], Ireland</span>
+            </div>
+            <a href="https://github.com/fjollaberisha" target="_blank" class="side-link">GitHub &#8599;</a>
+          </div>
+
+          <div class="pillar-side-card">
+            <h4>Key Topics</h4>
+            <div class="pillar-topics" style="margin-top: 0.5rem;">
+              <span>Usage Control</span>
+              <span>Policy Enforcement</span>
+              <span>Differential Privacy</span>
+              <span>Cryptographic Accountability</span>
+              <span>Data Spaces</span>
+              <span>Audit Trails</span>
+              <span>GDPR Compliance</span>
+              <span>Sovereignty Invariants</span>
+              <span>Consent Enforcement</span>
+              <span>Signed Policy Manifests</span>
+            </div>
+          </div>
+
+          <div class="pillar-side-card">
+            <h4>Open-Source Tool</h4>
+            <p style="font-size:0.85rem; margin: 0.5rem 0 0.75rem;">
+              <strong>sovereignty-chain</strong> — Python library for sovereignty invariant enforcement.
+            </p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span class="tool-badge">Python</span>
+              <span class="tool-badge">MIT License</span>
+              <span class="tool-badge">v0.1.0</span>
+            </div>
+            <a href="https://github.com/fjollaberisha/sovereignty-chain" target="_blank" class="side-link" style="margin-top:0.75rem; display:inline-block;">View on GitHub &#8599;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PILLAR 2: TRUST & TRUSTWORTHINESS ── -->
+  <section class="section section-alt pillar-deep trust-deep" id="pillar-trust">
+    <div class="container">
+      <div class="section-label pillar-label-trust">Pillar 2 &nbsp;·&nbsp; Deep Dive</div>
+      <div class="pillar-deep-header">
+        <div class="pillar-deep-icon">&#129309;</div>
+        <div>
+          <h2>Trust &amp; Trustworthiness</h2>
+          <p class="pillar-deep-lead">
+            Formal frameworks for evaluating and communicating the trustworthiness of actors and systems
+            in agricultural data sharing networks — enabling evidence-based, informed consent decisions.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-deep-grid">
+        <div class="pillar-deep-main">
+          <h3>Research Motivation</h3>
+          <p>
+            Trust is the precondition for data sharing. Farmers will only share their data with actors
+            they believe to be trustworthy — yet current agricultural data platforms provide no
+            standardised, verifiable way to assess that trustworthiness. Trust is often implicit,
+            contractual, or based on brand reputation rather than verifiable evidence.
+          </p>
+          <p>
+            This pillar develops computational trust models grounded in established trust theory
+            (Mayer, Davis &amp; Schoorman; Hardin) and operationalised through modern digital identity
+            standards — specifically W3C Verifiable Credentials and Decentralised Identifiers (DIDs).
+          </p>
+
+          <h3>Methodology</h3>
+          <p><strong>Design Science Research (DSR)</strong></p>
+
+
+        </div>
+
+        <div class="pillar-deep-side">
+          <div class="pillar-side-card trust-side">
+            <h4>Researcher</h4>
+            <div class="side-researcher">
+              <div class="team-avatar av-trust" style="margin: 0 0 0.75rem;">[In]</div>
+              <strong>[ESR 2 Full Name]</strong>
+              <span>ESR 2 &nbsp;·&nbsp; [Institution], [Country]</span>
+            </div>
+          </div>
+
+          <div class="pillar-side-card">
+            <h4>Key Topics</h4>
+            <div class="pillar-topics" style="margin-top: 0.5rem;">
+              <span>Trust Scoring</span>
+              <span>Verifiable Credentials</span>
+              <span>Reputation Systems</span>
+              <span>Consent Management</span>
+              <span>Actor Attestation</span>
+              <span>W3C DID</span>
+              <span>Informed Consent</span>
+              <span>Trust Theory</span>
+            </div>
+          </div>
+
+          <div class="pillar-side-card">
+            <h4>Tool in Development</h4>
+            <p style="font-size:0.85rem; margin: 0.5rem 0 0.75rem;">
+              <strong>trust-attestation</strong> — Framework for issuing and verifying agricultural trust credentials.
+            </p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span class="tool-badge">In Development</span>
+              <span class="tool-badge">ESR 2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PILLAR 3: CYBERSECURITY ── -->
+  <section class="section pillar-deep cyber-deep" id="pillar-cyber">
+    <div class="container">
+      <div class="section-label pillar-label-cyber">Pillar 3 &nbsp;·&nbsp; Deep Dive</div>
+      <div class="pillar-deep-header">
+        <div class="pillar-deep-icon">&#128737;</div>
+        <div>
+          <h2>Cybersecurity &amp; Risk Assessment</h2>
+          <p class="pillar-deep-lead">
+            Threat models and security primitives tailored to agricultural data ecosystems —
+            protecting the integrity, confidentiality, and availability of farm data from sensor
+            to analytical platform, in resource-constrained environments.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-deep-grid">
+        <div class="pillar-deep-main">
+          <h3>Research Motivation</h3>
+          <p>
+            Agriculture 4.0 stacks together technologies that were each designed for other contexts:
+            IoT devices from industrial settings, cloud platforms from enterprise IT, wireless
+            communications from telecommunications. The interconnection of these systems creates a
+            distributed attack surface where a compromised soil sensor, a misconfigured API endpoint,
+            or a spoofed identity can cascade through the entire data ecosystem.
+          </p>
+
+          <h3>Methodology</h3>
+          <p><strong>Design Science Research (DSR)</strong></p>
+
+
+        </div>
+
+        <div class="pillar-deep-side">
+          <div class="pillar-side-card cyber-side">
+            <h4>Researcher</h4>
+            <div class="side-researcher">
+              <div class="team-avatar av-cyber" style="margin: 0 0 0.75rem;">[In]</div>
+              <strong>[ESR 3 Full Name]</strong>
+              <span>ESR 3 &nbsp;·&nbsp; [Institution], [Country]</span>
+            </div>
+          </div>
+
+          <div class="pillar-side-card">
+            <h4>Key Topics</h4>
+            <div class="pillar-topics" style="margin-top: 0.5rem;">
+              <span>Threat Modelling (STRIDE)</span>
+              <span>Encryption Primitives</span>
+              <span>Role-Based Access Control</span>
+              <span>IoT Security</span>
+              <span>Zero Trust</span>
+              <span>Secure Channels</span>
+              <span>NIS2 Directive</span>
+              <span>Risk Assessment</span>
+            </div>
+          </div>
+
+          <div class="pillar-side-card">
+            <h4>Tool in Development</h4>
+            <p style="font-size:0.85rem; margin: 0.5rem 0 0.75rem;">
+              <strong>agri-threat-model</strong> — STRIDE-based threat modelling toolkit for agricultural IoT architectures.
+            </p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span class="tool-badge">In Development</span>
+              <span class="tool-badge">ESR 3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INTEGRATED GOVERNANCE FRAMEWORK ── -->
+  <section class="section section-alt" id="framework">
+    <div class="container">
+      <div class="section-label">Integrated Model</div>
+      <h2>Data Governance Framework</h2>
+      <p class="section-intro">
+        An interactive visual model showing how Data Sovereignty, Trust &amp; Trustworthiness, and
+        Cybersecurity interconnect to form a complete agricultural data governance architecture.
+        <strong>Click any pillar or keyword node</strong> to explore connections and details.
+      </p>
+      <div id="framework-widget"></div>
+    </div>
+  </section>
+
+  <!-- ── RELATED WORK ── -->
   <section class="section" id="sota">
     <div class="container">
-      <div class="section-label">Literature Review</div>
-      <h2>State of the Art</h2>
+      <div class="section-label">Related Work</div>
+      <h2>Key References</h2>
       <p class="section-intro">
-        Key works shaping the research landscape across our three pillars, with identified
-        gaps that our work package addresses.
+        Seminal and recent papers that ground our three research pillars. Each card summarises
+        the core finding and its relationship to this work package.
       </p>
 
       <div class="sota-tabs">
@@ -246,197 +496,267 @@
         <button class="sota-tab" data-pillar="cyber">Cybersecurity</button>
       </div>
 
-      <div class="sota-table-wrap">
-        <table class="sota-table">
-          <thead>
-            <tr>
-              <th>Reference</th>
-              <th>Year</th>
-              <th>Pillar</th>
-              <th>Key Contribution</th>
-              <th>Gap Addressed by Our Work</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div class="rw-grid" id="rw-grid">
 
-            <!-- ── Data Sovereignty ── -->
-            <tr data-pillar="sovereignty">
-              <td>
-                <strong>Michels et al.</strong><br>
-                <span class="ref-title">Governing Agricultural Data</span>
-              </td>
-              <td>2020</td>
-              <td><span class="tag sovereignty">Sovereignty</span></td>
-              <td>Identifies structural barriers to farmer data ownership in digital agriculture platforms</td>
-              <td>No formal enforcement mechanism proposed</td>
-            </tr>
-            <tr data-pillar="sovereignty">
-              <td>
-                <strong>Wiseman et al.</strong><br>
-                <span class="ref-title">Farmers and their Data</span>
-              </td>
-              <td>2019</td>
-              <td><span class="tag sovereignty">Sovereignty</span></td>
-              <td>Empirical study of farmer attitudes toward data sharing and ownership in the US</td>
-              <td>Descriptive only; no governance or enforcement framework</td>
-            </tr>
-            <tr data-pillar="sovereignty">
-              <td>
-                <strong>IDSA</strong><br>
-                <span class="ref-title">Reference Architecture Model v4</span>
-              </td>
-              <td>2022</td>
-              <td><span class="tag sovereignty">Sovereignty</span></td>
-              <td>Standardised connector architecture for sovereign industrial data spaces</td>
-              <td>Too infrastructurally heavy for small-farm contexts; no DP support</td>
-            </tr>
-            <tr data-pillar="sovereignty">
-              <td>
-                <strong>EU Regulation 2016/679</strong><br>
-                <span class="ref-title">General Data Protection Regulation (GDPR)</span>
-              </td>
-              <td>2016</td>
-              <td><span class="tag sovereignty">Sovereignty</span></td>
-              <td>Legal basis for data subject rights, consent, and processing accountability</td>
-              <td>Legal instrument only; not technically enforceable at system level</td>
-            </tr>
-            <tr data-pillar="sovereignty">
-              <td>
-                <strong>Dwork et al.</strong><br>
-                <span class="ref-title">Calibrating Noise to Sensitivity in Private Data Analysis</span>
-              </td>
-              <td>2006</td>
-              <td><span class="tag sovereignty">Sovereignty</span></td>
-              <td>Foundational differential privacy framework — the Laplace mechanism</td>
-              <td>Not applied to agricultural export contexts or sovereignty architectures</td>
-            </tr>
-            <tr data-pillar="sovereignty">
-              <td>
-                <strong>Van Kleek &amp; O'Hara</strong><br>
-                <span class="ref-title">Why Re-decentralizing the Web?</span>
-              </td>
-              <td>2019</td>
-              <td><span class="tag sovereignty">Sovereignty</span></td>
-              <td>Argues for returning data control to individuals via decentralised architectures</td>
-              <td>Agricultural domain specifics and enforcement mechanisms not addressed</td>
-            </tr>
+        <!-- ── DATA SOVEREIGNTY ── -->
 
-            <!-- ── Trust ── -->
-            <tr data-pillar="trust">
-              <td>
-                <strong>Mayer, Davis &amp; Schoorman</strong><br>
-                <span class="ref-title">An Integrative Model of Organizational Trust</span>
-              </td>
-              <td>1995</td>
-              <td><span class="tag trust">Trust</span></td>
-              <td>Seminal model: ability, benevolence, and integrity as antecedents of trust</td>
-              <td>Not operationalised for digital agricultural data sharing systems</td>
-            </tr>
-            <tr data-pillar="trust">
-              <td>
-                <strong>Artz &amp; Gil</strong><br>
-                <span class="ref-title">A Survey of Trust in Computer Science and the Semantic Web</span>
-              </td>
-              <td>2007</td>
-              <td><span class="tag trust">Trust</span></td>
-              <td>Comprehensive taxonomy of computational trust models</td>
-              <td>Pre-dates decentralised identity, verifiable credentials, and agricultural IoT</td>
-            </tr>
-            <tr data-pillar="trust">
-              <td>
-                <strong>W3C</strong><br>
-                <span class="ref-title">Verifiable Credentials Data Model 2.0</span>
-              </td>
-              <td>2023</td>
-              <td><span class="tag trust">Trust</span></td>
-              <td>Standard for cryptographically verifiable digital credentials</td>
-              <td>No domain-specific agricultural trust profiles or scoring models</td>
-            </tr>
-            <tr data-pillar="trust">
-              <td>
-                <strong>Hardin</strong><br>
-                <span class="ref-title">Trust and Trustworthiness</span>
-              </td>
-              <td>2002</td>
-              <td><span class="tag trust">Trust</span></td>
-              <td>Encapsulated interest account; key distinction between trust and trustworthiness</td>
-              <td>Philosophical framework; lacks a computational or measurable model</td>
-            </tr>
-            <tr data-pillar="trust">
-              <td>
-                <strong>Gaia-X AISBL</strong><br>
-                <span class="ref-title">Gaia-X Trust Framework</span>
-              </td>
-              <td>2023</td>
-              <td><span class="tag trust">Trust</span></td>
-              <td>European federated trust framework for cloud and data infrastructure</td>
-              <td>Agriculture-specific trust requirements and actor profiles not addressed</td>
-            </tr>
-            <tr data-pillar="trust">
-              <td>
-                <strong>Grandison &amp; Sloman</strong><br>
-                <span class="ref-title">A Survey of Trust in Internet Applications</span>
-              </td>
-              <td>2000</td>
-              <td><span class="tag trust">Trust</span></td>
-              <td>Foundational survey of trust in distributed internet systems</td>
-              <td>Predates modern data ecosystems, IoT, and decentralised identifiers</td>
-            </tr>
+        <article class="rw-card" data-pillar="sovereignty">
+          <div class="rw-card-top sovereignty-top">
+            <span class="rw-pillar-tag sovereignty">Sovereignty</span>
+            <span class="rw-year">2023</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-idsa">
+              <div class="rw-vis-label">IDS-RAM v4</div>
+              <div class="rw-vis-row">
+                <div class="rw-vis-box">Connector</div>
+                <div class="rw-vis-arrow">→</div>
+                <div class="rw-vis-box">Broker</div>
+                <div class="rw-vis-arrow">→</div>
+                <div class="rw-vis-box">Consumer</div>
+              </div>
+              <div class="rw-vis-note">Data Space Reference Architecture</div>
+            </div>
+            <h4 class="rw-title">International Data Spaces Reference Architecture Model v4</h4>
+            <p class="rw-authors">IDSA &nbsp;·&nbsp; 2022</p>
+            <p class="rw-abstract">Defines a standardised connector-based architecture enabling sovereign data exchange in industrial data spaces. Establishes the IDS Connector as the technical enforcement point for usage control policies, underpinning the EU Gaia-X and data space ecosystems.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Architectural precursor to our sovereignty invariant framework; our work extends usage control enforcement to resource-constrained agricultural settings not addressed by IDS-RAM.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">Architecture</span>
+              <span class="rw-badge">Data Spaces</span>
+              <span class="rw-badge">Usage Control</span>
+            </div>
+          </div>
+        </article>
 
-            <!-- ── Cybersecurity ── -->
-            <tr data-pillar="cyber">
-              <td>
-                <strong>ENISA</strong><br>
-                <span class="ref-title">Cybersecurity in the Agriculture Sector</span>
-              </td>
-              <td>2021</td>
-              <td><span class="tag cyber">Cybersecurity</span></td>
-              <td>First EU-level threat landscape assessment for the agricultural sector</td>
-              <td>Descriptive only; no technical countermeasures or formal threat models</td>
-            </tr>
-            <tr data-pillar="cyber">
-              <td>
-                <strong>Rose et al. (NIST)</strong><br>
-                <span class="ref-title">SP 800-207: Zero Trust Architecture</span>
-              </td>
-              <td>2020</td>
-              <td><span class="tag cyber">Cybersecurity</span></td>
-              <td>Foundational zero-trust security model replacing perimeter-based defences</td>
-              <td>Not adapted for resource-constrained agricultural IoT environments</td>
-            </tr>
-            <tr data-pillar="cyber">
-              <td>
-                <strong>Kamilaris et al.</strong><br>
-                <span class="ref-title">A Review on the Practice of Big Data Analysis in Agriculture</span>
-              </td>
-              <td>2017</td>
-              <td><span class="tag cyber">Cybersecurity</span></td>
-              <td>Identifies security as an open problem in agricultural big data pipelines</td>
-              <td>Security concerns are raised but not systematically addressed</td>
-            </tr>
-            <tr data-pillar="cyber">
-              <td>
-                <strong>Frustaci et al.</strong><br>
-                <span class="ref-title">Evaluating Critical Security Issues of the IoT</span>
-              </td>
-              <td>2018</td>
-              <td><span class="tag cyber">Cybersecurity</span></td>
-              <td>Systematic analysis of IoT security vulnerabilities and attack surfaces</td>
-              <td>Agricultural IoT specifics, data governance integration not covered</td>
-            </tr>
-            <tr data-pillar="cyber">
-              <td>
-                <strong>Shostack</strong><br>
-                <span class="ref-title">Threat Modeling: Designing for Security</span>
-              </td>
-              <td>2014</td>
-              <td><span class="tag cyber">Cybersecurity</span></td>
-              <td>STRIDE methodology for systematic threat identification in system design</td>
-              <td>Not applied to agricultural data sharing architectures</td>
-            </tr>
+        <article class="rw-card" data-pillar="sovereignty">
+          <div class="rw-card-top sovereignty-top">
+            <span class="rw-pillar-tag sovereignty">Sovereignty</span>
+            <span class="rw-year">2024</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-dp">
+              <div class="rw-dp-row">
+                <div class="rw-dp-col">
+                  <div class="rw-dp-bar" style="height:60px; background:#1a6bc7aa"></div>
+                  <span>Raw</span>
+                </div>
+                <div class="rw-dp-arrow">ε→</div>
+                <div class="rw-dp-col">
+                  <div class="rw-dp-bar" style="height:52px; background:#1a6bc755"></div>
+                  <span>Private</span>
+                </div>
+              </div>
+              <div class="rw-vis-note">Differential Privacy (ε-DP)</div>
+            </div>
+            <h4 class="rw-title">Differential Privacy: A Primer for a Non-Technical Audience</h4>
+            <p class="rw-authors">Wood et al. &nbsp;·&nbsp; <em>Vanderbilt Journal of Entertainment &amp; Technology Law</em> &nbsp;·&nbsp; 2018</p>
+            <p class="rw-abstract">Provides an accessible but rigorous treatment of differential privacy, the mathematical framework that guarantees individual privacy in statistical data releases. Defines ε-differential privacy and explains the Laplace and Gaussian mechanisms for noise calibration.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Foundational to our agricultural DP export layer; we apply Laplace-mechanism noise calibrated to agronomic time-series sensitivity functions.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">Differential Privacy</span>
+              <span class="rw-badge">Laplace Mechanism</span>
+            </div>
+          </div>
+        </article>
 
-          </tbody>
-        </table>
+        <article class="rw-card" data-pillar="sovereignty">
+          <div class="rw-card-top sovereignty-top">
+            <span class="rw-pillar-tag sovereignty">Sovereignty</span>
+            <span class="rw-year">2022</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-agdata">
+              <div class="rw-ag-icons">🌾 📡 🏭</div>
+              <div class="rw-vis-arrow-down">↓</div>
+              <div class="rw-ag-box">Platform Ecosystem</div>
+              <div class="rw-vis-note">Agri-Data Flows</div>
+            </div>
+            <h4 class="rw-title">Data Governance Frameworks for Agricultural Data Sharing: A Systematic Review</h4>
+            <p class="rw-authors">Jakku et al. &nbsp;·&nbsp; <em>NJAS: Impact in Agricultural and Life Sciences</em> &nbsp;·&nbsp; 2022</p>
+            <p class="rw-abstract">Synthesises 47 studies on agricultural data governance, identifying a persistent gap between legal data rights and technical enforcement capability. Finds that most governance frameworks remain at the policy level without specifying implementable technical mechanisms.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Directly motivates our SNF contribution — the gap between governance intent and technical enforcement is precisely what sovereignty invariants address.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">Systematic Review</span>
+              <span class="rw-badge">Agri-Data</span>
+              <span class="rw-badge">Governance Gap</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── TRUST ── -->
+
+        <article class="rw-card" data-pillar="trust">
+          <div class="rw-card-top trust-top">
+            <span class="rw-pillar-tag trust">Trust</span>
+            <span class="rw-year">1995</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-trust-model">
+              <div class="rw-trust-tri">
+                <div class="rw-tri-node" style="background:#dcfce7; color:#1a6b3a; border-color:#22a15a">Ability</div>
+                <div class="rw-tri-node" style="background:#dcfce7; color:#1a6b3a; border-color:#22a15a">Benevolence</div>
+                <div class="rw-tri-node" style="background:#dcfce7; color:#1a6b3a; border-color:#22a15a">Integrity</div>
+              </div>
+              <div class="rw-vis-arrow-down">↓</div>
+              <div class="rw-ag-box" style="border-color:#22a15a; color:#1a6b3a">Trust</div>
+              <div class="rw-vis-note">Mayer-Davis-Schoorman Model</div>
+            </div>
+            <h4 class="rw-title">An Integrative Model of Organizational Trust</h4>
+            <p class="rw-authors">Mayer, Davis &amp; Schoorman &nbsp;·&nbsp; <em>Academy of Management Review</em> &nbsp;·&nbsp; 1995</p>
+            <p class="rw-abstract">Proposes the seminal three-factor model of trust: a trustee's perceived ability, benevolence, and integrity jointly determine a trustor's willingness to be vulnerable. Distinguishes trust from trustworthiness and models risk as the mediating variable.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Theoretical backbone of our trust scoring model; the three antecedents map to verifiable credential attributes in our agricultural VC profiles.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">Trust Theory</span>
+              <span class="rw-badge">Seminal</span>
+              <span class="rw-badge">1,400+ citations</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="rw-card" data-pillar="trust">
+          <div class="rw-card-top trust-top">
+            <span class="rw-pillar-tag trust">Trust</span>
+            <span class="rw-year">2023</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-vc">
+              <div class="rw-vc-card">
+                <div class="rw-vc-header">🔏 Verifiable Credential</div>
+                <div class="rw-vc-row"><span>Issuer</span><span>Platform A</span></div>
+                <div class="rw-vc-row"><span>Subject</span><span>Farmer X</span></div>
+                <div class="rw-vc-row"><span>Proof</span><span>Ed25519 ✓</span></div>
+              </div>
+              <div class="rw-vis-note">W3C VC Data Model 2.0</div>
+            </div>
+            <h4 class="rw-title">Verifiable Credentials Data Model 2.0</h4>
+            <p class="rw-authors">W3C &nbsp;·&nbsp; Sporny et al. &nbsp;·&nbsp; W3C Recommendation &nbsp;·&nbsp; 2023</p>
+            <p class="rw-abstract">Specifies a standard JSON-LD data model for cryptographically verifiable digital credentials, enabling any holder to prove claims about themselves without relying on a centralised authority. Supports selective disclosure and unlinkability through ZKP-based proof mechanisms.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Technical standard for our agricultural trust credential profiles; our domain-specific VC types extend this specification with agri-actor attestation schemas.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">W3C Standard</span>
+              <span class="rw-badge">Verifiable Credentials</span>
+              <span class="rw-badge">ZKP</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="rw-card" data-pillar="trust">
+          <div class="rw-card-top trust-top">
+            <span class="rw-pillar-tag trust">Trust</span>
+            <span class="rw-year">2024</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-hcai">
+              <div class="rw-hcai-ring">
+                <div class="rw-hcai-node">Human</div>
+                <div class="rw-hcai-mid">⇄</div>
+                <div class="rw-hcai-node">AI</div>
+              </div>
+              <div class="rw-vis-note">Human-Centred AI Loop</div>
+            </div>
+            <h4 class="rw-title">Toward a Science of Human-AI Decision Making</h4>
+            <p class="rw-authors">Lai et al. &nbsp;·&nbsp; <em>ACM FAccT</em> &nbsp;·&nbsp; 2023</p>
+            <p class="rw-abstract">Reviews empirical research on AI-assisted decision-making, finding that appropriate human trust — neither over- nor under-reliance — is the central challenge. Introduces a taxonomy of human-AI complementarity and conditions under which AI explanations increase or decrease decision quality.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Grounds our farmer-facing trust interface design; appropriate reliance on trust scores requires explanation mechanisms that support — not replace — farmer judgement.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">Human-Centred AI</span>
+              <span class="rw-badge">Decision Support</span>
+              <span class="rw-badge">Explainability</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── CYBERSECURITY ── -->
+
+        <article class="rw-card" data-pillar="cyber">
+          <div class="rw-card-top cyber-top">
+            <span class="rw-pillar-tag cyber">Cybersecurity</span>
+            <span class="rw-year">2021</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-stride">
+              <div class="rw-stride-grid">
+                <div class="rw-stride-cell" style="background:#ede9fe; color:#6d28d9">S</div>
+                <div class="rw-stride-cell" style="background:#ede9fe; color:#6d28d9">T</div>
+                <div class="rw-stride-cell" style="background:#ede9fe; color:#6d28d9">R</div>
+                <div class="rw-stride-cell" style="background:#ede9fe; color:#6d28d9">I</div>
+                <div class="rw-stride-cell" style="background:#ede9fe; color:#6d28d9">D</div>
+                <div class="rw-stride-cell" style="background:#ede9fe; color:#6d28d9">E</div>
+              </div>
+              <div class="rw-stride-labels">
+                <span>Spoofing</span><span>Tampering</span><span>Repudiation</span>
+                <span>Info Disc.</span><span>DoS</span><span>Priv. Esc.</span>
+              </div>
+              <div class="rw-vis-note">STRIDE Threat Model</div>
+            </div>
+            <h4 class="rw-title">Cybersecurity Challenges in the Agri-Food Sector</h4>
+            <p class="rw-authors">Demestichas &amp; Daskalakis &nbsp;·&nbsp; <em>Sustainability</em> &nbsp;·&nbsp; 2020</p>
+            <p class="rw-abstract">Surveys the attack surface of precision agriculture deployments, cataloguing threats to IoT sensors, SCADA systems, and cloud data pipelines. Applies the STRIDE framework to identify the most prevalent attack categories in agricultural settings, and maps them to countermeasure categories.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> The closest existing STRIDE application to agricultural IoT; our agricultural threat catalogue builds on and extends this work with data-sharing-specific threat vectors.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">STRIDE</span>
+              <span class="rw-badge">Agri-IoT</span>
+              <span class="rw-badge">Threat Catalogue</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="rw-card" data-pillar="cyber">
+          <div class="rw-card-top cyber-top">
+            <span class="rw-pillar-tag cyber">Cybersecurity</span>
+            <span class="rw-year">2020</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-zt">
+              <div class="rw-zt-row">
+                <div class="rw-zt-device">📡 IoT</div>
+                <div class="rw-zt-policy">Policy Engine</div>
+                <div class="rw-zt-resource">🗄 Data</div>
+              </div>
+              <div class="rw-zt-label">Never trust · Always verify</div>
+              <div class="rw-vis-note">Zero Trust Architecture</div>
+            </div>
+            <h4 class="rw-title">SP 800-207: Zero Trust Architecture</h4>
+            <p class="rw-authors">Rose et al. &nbsp;·&nbsp; NIST &nbsp;·&nbsp; 2020</p>
+            <p class="rw-abstract">Defines zero trust as a security paradigm that eliminates implicit trust in any network zone, requiring continuous verification for every access request regardless of origin. Specifies the logical components — Policy Decision Point, Policy Enforcement Point, and Policy Information Point — of a zero trust architecture.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Foundational to our lightweight zero-trust adaptation; we map NIST's PDP/PEP/PIP architecture onto resource-constrained agricultural edge devices.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">NIST</span>
+              <span class="rw-badge">Zero Trust</span>
+              <span class="rw-badge">IoT</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="rw-card" data-pillar="cyber">
+          <div class="rw-card-top cyber-top">
+            <span class="rw-pillar-tag cyber">Cybersecurity</span>
+            <span class="rw-year">2023</span>
+          </div>
+          <div class="rw-card-body">
+            <div class="rw-visual rw-visual-nis2">
+              <div class="rw-nis2-shield">🇪🇺</div>
+              <div class="rw-nis2-text">NIS2 Directive<br><small>EU 2022/2555</small></div>
+              <div class="rw-nis2-pillars">
+                <div class="rw-nis2-pill">Risk Mgmt</div>
+                <div class="rw-nis2-pill">Incident Rep.</div>
+                <div class="rw-nis2-pill">Supply Chain</div>
+              </div>
+              <div class="rw-vis-note">EU Cybersecurity Regulation</div>
+            </div>
+            <h4 class="rw-title">NIS2 Directive: Measures for a High Common Level of Cybersecurity</h4>
+            <p class="rw-authors">European Parliament &amp; Council &nbsp;·&nbsp; EU 2022/2555 &nbsp;·&nbsp; 2023</p>
+            <p class="rw-abstract">The revised Network and Information Security Directive extends mandatory cybersecurity obligations to a broader set of critical sectors, including food and agriculture. Requires entities to implement risk management measures, supply chain security, and incident reporting within 24–72 hours of detection.</p>
+            <p class="rw-relevance"><strong>Relevance:</strong> Regulatory driver for our security requirements matrix; NIS2 obligations create the compliance context in which agricultural cybersecurity artefacts must operate.</p>
+            <div class="rw-meta">
+              <span class="rw-badge">EU Regulation</span>
+              <span class="rw-badge">NIS2</span>
+              <span class="rw-badge">Compliance</span>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -460,67 +780,100 @@
 
       <div class="publications-grid">
 
-        <div class="pub-card" data-filter="sovereignty">
-          <div class="pub-type">Conference Paper</div>
-          <h4>Sovereignty Invariants for Agricultural Data Ecosystems: A Formal Framework</h4>
-          <div class="pub-authors">Berisha, F. &nbsp;&middot;&nbsp; [Co-author] &nbsp;&middot;&nbsp; [Supervisor]</div>
-          <div class="pub-venue">[Conference Name] &nbsp;&middot;&nbsp; 2025</div>
-          <div class="pub-tags">
-            <span class="tag sovereignty">Sovereignty</span>
-            <span>NST</span>
-            <span>Formal Methods</span>
-          </div>
-          <div class="pub-actions">
-            <a href="#" class="pub-link">PDF &#8599;</a>
-            <a href="#" class="pub-link">DOI &#8599;</a>
-          </div>
-        </div>
-
+        <!-- 1. Berisha et al. 2026 — Data & Policy journal -->
         <div class="pub-card" data-filter="sovereignty">
           <div class="pub-type">Journal Article</div>
-          <h4>Differential Privacy for Agricultural Data Export: Balancing Utility and Privacy Protection</h4>
-          <div class="pub-authors">Berisha, F. &nbsp;&middot;&nbsp; [Co-author]</div>
-          <div class="pub-venue">[Journal Name] &nbsp;&middot;&nbsp; 2025</div>
+          <h4>Shared Yet Owned: The Dual Path of Data Ownership in Agriculture: A Systematic Review</h4>
+          <div class="pub-authors">Berisha, F. &nbsp;&middot;&nbsp; Mooney, P. &nbsp;&middot;&nbsp; Pourzolfaghar, Z. &nbsp;&middot;&nbsp; Helfert, M.</div>
+          <div class="pub-venue"><em>Data &amp; Policy</em> &nbsp;&middot;&nbsp; Vol. 8 &nbsp;&middot;&nbsp; 2026</div>
           <div class="pub-tags">
             <span class="tag sovereignty">Sovereignty</span>
-            <span>Differential Privacy</span>
+            <span>Systematic Review</span>
+            <span>Data Ownership</span>
             <span>Agriculture</span>
           </div>
           <div class="pub-actions">
-            <a href="#" class="pub-link">PDF &#8599;</a>
-            <a href="#" class="pub-link">DOI &#8599;</a>
+            <a href="https://doi.org/10.1017/dap.2025.10050" class="pub-link" target="_blank">DOI &#8599;</a>
           </div>
         </div>
 
-        <div class="pub-card" data-filter="trust">
+        <!-- 2. Berisha et al. 2025b — Cyber-RCI -->
+        <div class="pub-card" data-filter="sovereignty">
           <div class="pub-type">Conference Paper</div>
-          <h4>[Title of Trust &amp; Trustworthiness Paper — to be filled in]</h4>
-          <div class="pub-authors">[ESR 2 Name] &nbsp;&middot;&nbsp; [Co-author]</div>
-          <div class="pub-venue">[Conference Name] &nbsp;&middot;&nbsp; 2025</div>
+          <h4>"Code Is Law" for IoT Data Sharing: Technical Architecture as Sovereign Enforcer in Commercial Data Sharing Platforms</h4>
+          <div class="pub-authors">Berisha, F. &nbsp;&middot;&nbsp; Da Silva, L. &nbsp;&middot;&nbsp; Mooney, P. &nbsp;&middot;&nbsp; Pourzolfaghar, Z. &nbsp;&middot;&nbsp; Helfert, M.</div>
+          <div class="pub-venue">Cyber Research Conference — Ireland (Cyber-RCI) &nbsp;&middot;&nbsp; 2025</div>
           <div class="pub-tags">
-            <span class="tag trust">Trust</span>
-            <span>Verifiable Credentials</span>
-            <span>Agriculture</span>
+            <span class="tag sovereignty">Sovereignty</span>
+            <span>IoT</span>
+            <span>Data Sharing Platforms</span>
           </div>
           <div class="pub-actions">
-            <a href="#" class="pub-link">PDF &#8599;</a>
-            <a href="#" class="pub-link">DOI &#8599;</a>
+            <a href="https://doi.org/10.1109/cyber-rci68134.2025.11385217" class="pub-link" target="_blank">DOI &#8599;</a>
           </div>
         </div>
 
+        <!-- 3. Berisha et al. 2025a — Cyber-AI -->
+        <div class="pub-card" data-filter="sovereignty">
+          <div class="pub-type">Conference Paper</div>
+          <h4>An AI-Driven Framework for Agricultural Data Interoperability Informed by Literature and Stakeholder Insights</h4>
+          <div class="pub-authors">Berisha, F. &nbsp;&middot;&nbsp; Da Silva, L. &nbsp;&middot;&nbsp; Tegolo, E. &nbsp;&middot;&nbsp; Mooney, P. &nbsp;&middot;&nbsp; Pourzolfaghar, Z. &nbsp;&middot;&nbsp; Helfert, M.</div>
+          <div class="pub-venue">International Conference on Cybersecurity and AI-Based Systems (Cyber-AI) &nbsp;&middot;&nbsp; 2025</div>
+          <div class="pub-tags">
+            <span class="tag sovereignty">Sovereignty</span>
+            <span>AI</span>
+            <span>Interoperability</span>
+            <span>Agriculture</span>
+          </div>
+          <div class="pub-actions">
+            <a href="https://doi.org/10.1109/cyber-ai66431.2025.11233360" class="pub-link" target="_blank">DOI &#8599;</a>
+          </div>
+        </div>
+
+        <!-- 4. Nodehi, Berisha et al. 2024 — Cyber-RCI -->
         <div class="pub-card" data-filter="cyber">
-          <div class="pub-type">Workshop Paper</div>
-          <h4>[Title of Cybersecurity Paper — to be filled in]</h4>
-          <div class="pub-authors">[ESR 3 Name] &nbsp;&middot;&nbsp; [Co-author]</div>
-          <div class="pub-venue">[Conference Name] &nbsp;&middot;&nbsp; 2025</div>
+          <div class="pub-type">Conference Paper</div>
+          <h4>Integrating Cybersecurity, Data Sovereignty and Trustworthiness in Agri-data Sharing Environments: A Conceptual Framework</h4>
+          <div class="pub-authors">Nodehi, N.R. &nbsp;&middot;&nbsp; Berisha, F. &nbsp;&middot;&nbsp; Da Silva, L. &nbsp;&middot;&nbsp; Pourzolfaghar, Z. &nbsp;&middot;&nbsp; Helfert, M.</div>
+          <div class="pub-venue">Cyber Research Conference — Ireland (Cyber-RCI) &nbsp;&middot;&nbsp; 2024</div>
           <div class="pub-tags">
             <span class="tag cyber">Cybersecurity</span>
-            <span>Threat Modelling</span>
-            <span>IoT</span>
+            <span class="tag sovereignty">Sovereignty</span>
+            <span class="tag trust">Trust</span>
+            <span>Agri-Data</span>
           </div>
           <div class="pub-actions">
-            <a href="#" class="pub-link">PDF &#8599;</a>
-            <a href="#" class="pub-link">DOI &#8599;</a>
+            <a href="https://doi.org/10.1109/cyber-rci60769.2024.10939388" class="pub-link" target="_blank">DOI &#8599;</a>
+          </div>
+        </div>
+
+        <!-- 5. Da Silva, Berisha et al. 2026 — HCAI-EP -->
+        <div class="pub-card" data-filter="trust">
+          <div class="pub-type">Conference Paper</div>
+          <h4>Towards Trustworthiness in Agri-Data Sharing: The Role of Data and Processes in the Age of Human-Centred AI</h4>
+          <div class="pub-authors">Da Silva, L. &nbsp;&middot;&nbsp; Berisha, F. &nbsp;&middot;&nbsp; Pourzolfaghar, Z. &nbsp;&middot;&nbsp; Helfert, M.</div>
+          <div class="pub-venue">Human-Centered AI Education &amp; Practice Conference (HCAI-EP'26) &nbsp;&middot;&nbsp; ACM &nbsp;&middot;&nbsp; 2026</div>
+          <div class="pub-tags">
+            <span class="tag trust">Trust</span>
+            <span>Human-Centred AI</span>
+            <span>Agri-Data</span>
+          </div>
+          <div class="pub-actions">
+            <a href="https://doi.org/10.1145/3777490.3777503" class="pub-link" target="_blank">DOI &#8599;</a>
+          </div>
+        </div>
+
+        <!-- 6. Berisha et al. 2026 — Digital Sovereignty Oslo (in press) -->
+        <div class="pub-card" data-filter="sovereignty">
+          <div class="pub-type pub-type-inpress">In Press &nbsp;·&nbsp; May 2026</div>
+          <h4>The Sovereign Loop: A Novel Model for Trust-Calibrated Human-Centered AI in Data-Scarce Environments</h4>
+          <div class="pub-authors">Berisha, F. &nbsp;&middot;&nbsp; Da Silva, L. &nbsp;&middot;&nbsp; Mooney, P. &nbsp;&middot;&nbsp; Pourzolfaghar, Z. &nbsp;&middot;&nbsp; Helfert, M.</div>
+          <div class="pub-venue">2nd International Conference on Digital Sovereignty &nbsp;&middot;&nbsp; Oslo, Norway &nbsp;&middot;&nbsp; 2026</div>
+          <div class="pub-tags">
+            <span class="tag sovereignty">Sovereignty</span>
+            <span class="tag trust">Trust</span>
+            <span>Human-Centred AI</span>
+            <span>Data-Scarce Environments</span>
           </div>
         </div>
 
@@ -715,7 +1068,7 @@
         <div class="footer-links">
           <h5>Resources</h5>
           <ul>
-            <li><a href="#sota">State of the Art</a></li>
+            <li><a href="#sota">Related Work</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#tools">Open Source Tools</a></li>
           </ul>
@@ -736,6 +1089,7 @@
     </div>
   </footer>
 
+  <script src="framework.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
