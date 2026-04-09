@@ -99,13 +99,12 @@
             in data governance for agricultural ecosystems.
           </p>
           <p>
-            Agricultural data sharing presents unique governance challenges: farmers lack the infrastructure and legal frameworks to fully exercise that
-            ownership. Our research develops formal, implementable solutions grounded in three
-            complementary and interconnected pillars — sovereignty, trust, and security.
+            Agricultural data sharing presents unique governance challenges: farmers lack the infrastructure and legal frameworks to fully exercise data sharing. Our research develops formal, implementable solutions grounded in three
+            complementary and interconnected pillars: sovereignty, trust, and security.
           </p>
           <p>
             Together, the three pillars form a complete governance layer: data cannot be
-            shared responsibly without enforcing ownership rights, verifying the trustworthiness
+            shared responsibly without enforcing data usage constraints, verifying the trustworthiness
             of all parties, and securing the channel and content of every exchange.
           </p>
         </div>
@@ -144,23 +143,20 @@
           <div class="pillar-tag">Pillar 1</div>
           <h3>Data Sovereignty</h3>
           <p>
-            Investigates formal mechanisms for enforcing data ownership rights throughout the
-            agricultural data lifecycle. Research centres on sovereignty invariants —
-            mathematical properties that guarantee a data owner's rights are preserved
-            regardless of how data flows through digital ecosystems. Includes an open-source
-            Python library (<em>sovereignty-chain</em>) implementing cryptographic policy
-            enforcement and differential privacy for agricultural data exports.
+            Investigates formal mechanisms for enforcing data usage control throughout the
+            data sharing process. Research centres on sovereignty constraints that guarantee a data provider's rights are preserved
+            regardless of how data flows through digital ecosystems. 
           </p>
           <div class="pillar-topics">
-            <span>Sovereignty Invariants</span>
+            <span>Usage Control</span>
             <span>Policy Enforcement</span>
-            <span>Differential Privacy</span>
-            <span>Cryptographic Accountability</span>
-            <span>NST Architecture</span>
-            <span>Audit Chains</span>
+            <span>ODRL</span>
+            <span>XACML</span>
+            <span>NST</span>
+            <span>EU Data Act</span>
           </div>
           <div class="pillar-researcher">
-            <strong>ESR 1</strong> &nbsp;·&nbsp; Fjolla Berisha &nbsp;·&nbsp; [Institution], Ireland
+            <strong>DC05</strong> &nbsp;·&nbsp; Fjolla Berisha &nbsp;·&nbsp; Maynooth University, Ireland
           </div>
         </div>
 
@@ -169,46 +165,45 @@
           <div class="pillar-tag">Pillar 2</div>
           <h3>Trust &amp; Trustworthiness</h3>
           <p>
-            Develops formal frameworks for evaluating and communicating the trustworthiness of
+            Develops process model for evaluating and communicating the trustworthiness of
             actors and systems in agricultural data sharing networks. Research addresses how
             farmers can make informed, evidence-based decisions about who to share their data
-            with and under what conditions — grounded in established trust theory and modern
-            verifiable credential standards.
+            with.
           </p>
           <div class="pillar-topics">
-            <span>Trust Scoring</span>
+            <span>Auditability</span>
             <span>Verifiable Credentials</span>
-            <span>Reputation Systems</span>
-            <span>Consent Management</span>
-            <span>Actor Attestation</span>
-            <span>W3C DID</span>
+            <span>Data Sharing Agreements</span>
+            <span>Data Quality</span>
+            <span>Explainability</span>
+            <span>Agri tech</span>
           </div>
           <div class="pillar-researcher">
-            <strong>ESR 2</strong> &nbsp;·&nbsp; [Name] &nbsp;·&nbsp; [Institution], [Country]
+            <strong>DC 06</strong> &nbsp;·&nbsp; Leidiane Da Silva &nbsp;·&nbsp; Maynooth University, Ireland
           </div>
         </div>
 
         <div class="pillar-card cyber">
           <div class="pillar-icon">&#128737;</div>
           <div class="pillar-tag">Pillar 3</div>
-          <h3>Cybersecurity</h3>
+          <h3>Cybersecurity and Risk Assessment</h3>
           <p>
             Examines threat models specific to agricultural data ecosystems and develops
             security primitives that protect the integrity, confidentiality, and availability
-            of agricultural data throughout the sharing lifecycle — from IoT field sensor to
+            of agricultural data throughout the sharing lifecycle: from IoT field sensor to
             analytical platform. Applies the STRIDE methodology adapted to the constraints of
             resource-limited agricultural infrastructure.
           </p>
           <div class="pillar-topics">
-            <span>Threat Modelling (STRIDE)</span>
-            <span>Encryption Primitives</span>
+            <span>Threat Modelling</span>
+            <span>Encryption</span>
             <span>Role-Based Access Control</span>
             <span>IoT Security</span>
             <span>Zero Trust</span>
             <span>Secure Channels</span>
           </div>
           <div class="pillar-researcher">
-            <strong>ESR 3</strong> &nbsp;·&nbsp; [Name] &nbsp;·&nbsp; [Institution], [Country]
+            <strong>DC04</strong> &nbsp;·&nbsp; AhsanRehman Gill &nbsp;·&nbsp; Maynooth University, Ireland
           </div>
         </div>
 
@@ -220,12 +215,12 @@
         <div class="interconnect-flow">
           <div class="flow-step sovereignty-step">
             <strong>Sovereignty</strong>
-            <span>Enforces who owns the data and what can be done with it</span>
+            <span>Enforces who and how the data is used and shared</span>
           </div>
           <div class="flow-arrow">&#8594;</div>
           <div class="flow-step trust-step">
             <strong>Trust</strong>
-            <span>Verifies whether actors requesting access are trustworthy</span>
+            <span>Verifies whether actors requesting data access are trustworthy</span>
           </div>
           <div class="flow-arrow">&#8594;</div>
           <div class="flow-step cyber-step">
@@ -263,7 +258,7 @@
             no way to verify whether their conditions are honoured downstream.
           </p>
           <p>
-            This pillar develops <strong>sovereignty invariants</strong> — formally specified properties
+            This pillar develops <strong>sovereignty constraints</strong> — formally specified properties
             that, once embedded in a data architecture, guarantee sovereignty rights are preserved regardless
             of how data flows, is transformed, or is re-shared across ecosystem actors.
           </p>
@@ -280,40 +275,26 @@
             <div class="side-researcher">
               <div class="team-avatar av-sovereignty" style="margin: 0 0 0.75rem;">FB</div>
               <strong>Fjolla Berisha</strong>
-              <span>ESR 1 &nbsp;·&nbsp; [Institution], Ireland</span>
+              <span>DC05 &nbsp;·&nbsp; Maynooth University, Ireland</span>
             </div>
-            <a href="https://github.com/fjollaberisha" target="_blank" class="side-link">GitHub &#8599;</a>
-          </div>
+                   </div>
 
           <div class="pillar-side-card">
             <h4>Key Topics</h4>
             <div class="pillar-topics" style="margin-top: 0.5rem;">
               <span>Usage Control</span>
               <span>Policy Enforcement</span>
-              <span>Differential Privacy</span>
+              <span>Design Science Research</span>
               <span>Cryptographic Accountability</span>
               <span>Data Spaces</span>
               <span>Audit Trails</span>
-              <span>GDPR Compliance</span>
+              <span>EU Data Act</span>
               <span>Sovereignty Invariants</span>
               <span>Consent Enforcement</span>
-              <span>Signed Policy Manifests</span>
-            </div>
+                       </div>
           </div>
 
-          <div class="pillar-side-card">
-            <h4>Open-Source Tool</h4>
-            <p style="font-size:0.85rem; margin: 0.5rem 0 0.75rem;">
-              <strong>sovereignty-chain</strong> — Python library for sovereignty invariant enforcement.
-            </p>
-            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tool-badge">Python</span>
-              <span class="tool-badge">MIT License</span>
-              <span class="tool-badge">v0.1.0</span>
-            </div>
-            <a href="https://github.com/fjollaberisha/sovereignty-chain" target="_blank" class="side-link" style="margin-top:0.75rem; display:inline-block;">View on GitHub &#8599;</a>
-          </div>
-        </div>
+                </div>
       </div>
     </div>
   </section>
