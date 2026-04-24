@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Agri-Data Sharing Simulation · ENTRUST WP2</title>
+<style id="reset-tag"></style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sov: #1a6bc7;   --sov-light: #dbeafe;   --sov-dark: #1e3a8a;
+    --trust: #16a34a; --trust-light: #dcfce7; --trust-dark: #14532d;
+    --cyber: #7c3aed; --cyber-light: #ede9fe; --cyber-dark: #4c1d95;
+    --aim: #f97316;   --aim-light: #fed7aa;
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --bg: #f8fafc;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow: hidden;
+    font-size: 14px;
+  }
+  .app {
+    display: grid;
+    grid-template-rows: 64px 1fr;
+    grid-template-columns: 280px 1fr 340px;
+    grid-template-areas:
+      "header header header"
+      "left   stage  right";
+    height: 100vh;
+    min-width: 1100px;
+    gap: 1px;
+    background: var(--line);
+  }
+
+  /* HEADER */
+  header {
+    grid-area: header;
+    background: var(--card);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .brand {
+    display: flex; flex-direction: column; gap: 0.1rem;
+  }
+  .brand .title {
+    font-family: 'Merriweather', serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .brand .title .accent { color: var(--sov); }
+  .brand .subtitle {
+    font-size: 0.76rem; color: var(--muted);
+  }
+  .controls { display: flex; gap: 0.5rem; align-items: center; }
+  .btn {
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: 0.55rem 1rem;
+    border-radius: 7px;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .btn:hover { border-color: #94a3b8; background: #f1f5f9; }
+  .btn.primary {
+    background: var(--ink); color: white; border-color: var(--ink);
+    padding: 0.6rem 1.2rem; font-weight: 600;
+  }
+  .btn.primary:hover { background: #1e293b; }
+  .progress {
+    position: absolute; bottom: 0; left: 0;
+    height: 3px; background: var(--sov);
+    transition: width 0.5s, background 0.3s;
+  }
+
+  /* LEFT PANEL */
+  .left {
+    grid-area: left;
+    background: var(--card);
+    padding: 1.5rem 1.25rem;
+    overflow-y: auto;
+  }
+  .panel-title {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 0.85rem;
+  }
+  .scenario {
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 0.9rem;
+    margin-bottom: 0.7rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--card);
+  }
+  .scenario:hover { border-color: #94a3b8; }
+  .scenario.active {
+    border-color: var(--ink);
+    background: #f8fafc;
+  }
+  .scenario .name { font-weight: 600; font-size: 0.93rem; margin-bottom: 0.25rem; }
+  .scenario .desc { font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+  .scenario .outcome {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+    margin-top: 0.55rem;
+    font-weight: 600;
+  }
+  .scenario .outcome.ok { background: var(--trust-light); color: var(--trust-dark); }
+  .scenario .outcome.bad { background: #fee2e2; color: #991b1b; }
+  .scenario .outcome.partial { background: #fef3c7; color: #92400e; }
+
+  .pillars-ref {
+    margin-top: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .pillar-ref {
+    display: grid; grid-template-columns: 32px 1fr;
+    gap: 0.6rem;
+    padding: 0.65rem;
+    border-radius: 8px;
+    align-items: center;
+    font-size: 0.78rem;
+  }
+  .pillar-ref.sov { background: var(--sov-light); }
+  .pillar-ref.trust { background: var(--trust-light); }
+  .pillar-ref.cyber { background: var(--cyber-light); }
+  .pillar-ref .ico {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: white;
+  }
+  .pillar-ref.sov .ico { background: var(--sov); }
+  .pillar-ref.trust .ico { background: var(--trust); }
+  .pillar-ref.cyber .ico { background: var(--cyber); }
+  .pillar-ref .name { font-weight: 700; }
+  .pillar-ref.sov .name { color: var(--sov-dark); }
+  .pillar-ref.trust .name { color: var(--trust-dark); }
+  .pillar-ref.cyber .name { color: var(--cyber-dark); }
+  .pillar-ref .tagline { font-size: 0.72rem; opacity: 0.8; line-height: 1.35; }
+
+  /* STAGE */
+  .stage {
+    grid-area: stage;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(26,107,199,0.05), transparent 55%),
+      radial-gradient(circle at 70% 80%, rgba(124,58,237,0.05), transparent 55%),
+      radial-gradient(circle at 50% 50%, rgba(249,115,22,0.03), transparent 50%),
+      #fafbfc;
+    position: relative;
+    overflow: hidden;
+  }
+  svg.stage-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  .actor {
+    position: absolute;
+    width: 190px;
+    padding: 1rem;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .actor .role {
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .actor .glyph {
+    width: 48px; height: 48px;
+    margin: 0 auto 0.55rem;
+    border-radius: 12px;
+    background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.55rem;
+  }
+  .actor .name { font-weight: 700; font-size: 1rem; margin-bottom: 0.15rem; }
+  .actor .meta { font-size: 0.74rem; color: var(--muted); }
+
+  .actor.farmer     { top: 46%; left: 16px; transform: translateY(-50%); }
+  .actor.platform   { top: 14px; left: 50%; transform: translateX(-50%); }
+  .actor.researcher { top: 46%; right: 16px; transform: translateY(-50%); }
+
+  .actor.highlight { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(15,23,42,0.08), 0 4px 12px rgba(15,23,42,0.08); }
+  .actor.highlight.sov   { border-color: var(--sov); box-shadow: 0 0 0 3px rgba(26,107,199,0.15), 0 4px 12px rgba(26,107,199,0.15); }
+  .actor.highlight.trust { border-color: var(--trust); box-shadow: 0 0 0 3px rgba(22,163,74,0.15), 0 4px 12px rgba(22,163,74,0.15); }
+  .actor.highlight.cyber { border-color: var(--cyber); box-shadow: 0 0 0 3px rgba(124,58,237,0.15), 0 4px 12px rgba(124,58,237,0.15); }
+
+  @media (max-width: 1280px) {
+    .app { grid-template-columns: 250px 1fr 300px; }
+    .actor { width: 160px; padding: 0.8rem; }
+    .actor .glyph { width: 42px; height: 42px; font-size: 1.35rem; }
+  }
+
+  /* CENTER: PILLAR RING + CURRENT-STEP CARD */
+  .center-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px; height: 340px;
+    pointer-events: none;
+  }
+  .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px dashed transparent;
+    transition: border-color 0.3s, box-shadow 0.4s, transform 0.3s;
+  }
+  .ring.sov    { transform: scale(1);    border-color: rgba(26,107,199,0.18); }
+  .ring.trust  { transform: scale(0.78); border-color: rgba(22,163,74,0.18); }
+  .ring.cyber  { transform: scale(0.56); border-color: rgba(124,58,237,0.18); }
+  .ring.active.sov    { border-color: var(--sov);   border-style: solid; box-shadow: 0 0 40px rgba(26,107,199,0.25); }
+  .ring.active.trust  { border-color: var(--trust); border-style: solid; box-shadow: 0 0 40px rgba(22,163,74,0.25); }
+  .ring.active.cyber  { border-color: var(--cyber); border-style: solid; box-shadow: 0 0 40px rgba(124,58,237,0.25); }
+
+  .ring-label {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    padding: 0.22rem 0.7rem;
+    background: var(--card);
+    border: 1.5px solid;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: all 0.25s;
+  }
+  .ring-label.sov   { color: var(--sov);   border-color: var(--sov-light); }
+  .ring-label.trust { color: var(--trust); border-color: var(--trust-light); }
+  .ring-label.cyber { color: var(--cyber); border-color: var(--cyber-light); }
+  .ring.active .ring-label { color: white; }
+  .ring.active.sov .ring-label   { background: var(--sov);   border-color: var(--sov); }
+  .ring.active.trust .ring-label { background: var(--trust); border-color: var(--trust); }
+  .ring.active.cyber .ring-label { background: var(--cyber); border-color: var(--cyber); }
+
+  /* Step card (center, inside innermost ring) */
+  .step-card {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    padding: 0.9rem;
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.08);
+    text-align: center;
+    transition: all 0.4s;
+    opacity: 0;
+  }
+  .step-card.show { opacity: 1; }
+  .step-card.sov   { border-color: var(--sov); }
+  .step-card.trust { border-color: var(--trust); }
+  .step-card.cyber { border-color: var(--cyber); }
+  .step-card .icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.35rem;
+  }
+  .step-card .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.3rem;
+  }
+  .step-card.sov   .label { color: var(--sov); }
+  .step-card.trust .label { color: var(--trust); }
+  .step-card.cyber .label { color: var(--cyber); }
+  .step-card .headline {
+    font-weight: 700;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  /* Moving packet dot between actors */
+  .packet-dot {
+    position: absolute;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--sov);
+    box-shadow: 0 0 0 6px rgba(26,107,199,0.18);
+    transform: translate(-50%, -50%);
+    transition: top 1.2s cubic-bezier(0.4,0,0.2,1), left 1.2s cubic-bezier(0.4,0,0.2,1), background 0.3s, box-shadow 0.3s, opacity 0.3s;
+    z-index: 4;
+    opacity: 0;
+  }
+  .packet-dot.show { opacity: 1; }
+  .packet-dot.sov   { background: var(--sov);   box-shadow: 0 0 0 8px rgba(26,107,199,0.22); }
+  .packet-dot.trust { background: var(--trust); box-shadow: 0 0 0 8px rgba(22,163,74,0.22); }
+  .packet-dot.cyber { background: var(--cyber); box-shadow: 0 0 0 8px rgba(124,58,237,0.22); }
+
+  /* Journey ticker (bottom strip) */
+  .ticker {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    display: flex; gap: 0.3rem;
+    padding: 0.45rem 0.7rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(15,23,42,0.06);
+    max-width: calc(100% - 32px);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ticker::-webkit-scrollbar { display: none; }
+  .tick {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.25s;
+    flex-shrink: 0;
+  }
+  .tick.done { background: var(--ink); color: white; }
+  .tick.active.sov   { background: var(--sov);   color: white; transform: scale(1.2); }
+  .tick.active.trust { background: var(--trust); color: white; transform: scale(1.2); }
+  .tick.active.cyber { background: var(--cyber); color: white; transform: scale(1.2); }
+
+  /* RIGHT: NARRATIVE PANEL */
+  .right {
+    grid-area: right;
+    background: var(--card);
+    padding: 1.5rem 1.25rem;
+    overflow-y: auto;
+  }
+  .narr-pill {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.9rem;
+  }
+  .narr-pill.idle  { background: var(--aim-light); color: #9a3412; }
+  .narr-pill.sov   { background: var(--sov-light); color: var(--sov-dark); }
+  .narr-pill.trust { background: var(--trust-light); color: var(--trust-dark); }
+  .narr-pill.cyber { background: var(--cyber-light); color: var(--cyber-dark); }
+
+  .narr-headline {
+    font-family: 'Merriweather', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.45rem;
+    letter-spacing: -0.015em;
+  }
+  .narr-lead {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 1.2rem;
+  }
+  .narr-story {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #1e293b;
+    margin-bottom: 1.3rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    background: #f8fafc;
+    border-left: 3px solid var(--muted);
+  }
+  .narr-story.sov   { border-left-color: var(--sov); }
+  .narr-story.trust { border-left-color: var(--trust); }
+  .narr-story.cyber { border-left-color: var(--cyber); }
+
+  .pillars-play {
+    display: flex; flex-direction: column; gap: 0.55rem;
+  }
+  .play-row {
+    padding: 0.7rem 0.85rem;
+    border-radius: 9px;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    border: 1px solid transparent;
+  }
+  .play-row.sov   { background: var(--sov-light);   color: var(--sov-dark); }
+  .play-row.trust { background: var(--trust-light); color: var(--trust-dark); }
+  .play-row.cyber { background: var(--cyber-light); color: var(--cyber-dark); }
+  .play-row .lbl {
+    font-weight: 700;
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.2rem;
+    opacity: 0.85;
+  }
+  .play-row.active { border-width: 2px; padding: calc(0.7rem - 1px) calc(0.85rem - 1px); }
+  .play-row.sov.active   { border-color: var(--sov); }
+  .play-row.trust.active { border-color: var(--trust); }
+  .play-row.cyber.active { border-color: var(--cyber); }
+
+  .narr-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 1.2rem 0 0.55rem;
+  }
+
+  /* Intro state illustration */
+  .intro-illus {
+    margin: 1rem 0 0.8rem;
+    padding: 1.1rem;
+    background: #fff7ed;
+    border: 1px solid var(--aim-light);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .intro-illus .ico { font-size: 2rem; margin-bottom: 0.4rem; }
+  .intro-illus .headline {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: #9a3412;
+    margin-bottom: 0.3rem;
+  }
+  .intro-illus .body {
+    font-size: 0.82rem; color: #7c2d12; line-height: 1.5;
+  }
+
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="brand">
+      <div class="title"><span class="accent">e</span>NTRUST · Data Sharing Simulation</div>
+      <div class="subtitle">A farmer shares data — sovereignty, trust, and security work together at every step</div>
+    </div>
+    <div class="controls">
+      <button class="btn" id="stepBtn">Step forward →</button>
+      <button class="btn" id="resetBtn">Restart</button>
+      <button class="btn primary" id="playBtn">▶ Play simulation</button>
+    </div>
+    <div class="progress" id="progress" style="width:0%"></div>
+  </header>
+
+  <!-- LEFT -->
+  <aside class="left">
+    <div class="panel-title">Choose a scenario</div>
+    <div id="scenarios"></div>
+
+    <div class="panel-title" style="margin-top:1.5rem;">The three pillars</div>
+    <div class="pillars-ref">
+      <div class="pillar-ref sov">
+        <div class="ico">🔒</div>
+        <div>
+          <div class="name">Sovereignty</div>
+          <div class="tagline">The farmer stays in control — sets the rules of use.</div>
+        </div>
+      </div>
+      <div class="pillar-ref trust">
+        <div class="ico">🤝</div>
+        <div>
+          <div class="name">Trust</div>
+          <div class="tagline">Actors and data must be credible and verifiable.</div>
+        </div>
+      </div>
+      <div class="pillar-ref cyber">
+        <div class="ico">🛡️</div>
+        <div>
+          <div class="name">Cybersecurity</div>
+          <div class="tagline">The channel and the data are protected from harm.</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- STAGE -->
+  <main class="stage" id="stage">
+    <svg class="stage-svg" id="stageSvg"></svg>
+
+    <div class="actor farmer" id="actor-farmer">
+      <div class="role">Data Owner</div>
+      <div class="glyph">🌾</div>
+      <div class="name">The Farmer</div>
+      <div class="meta">owns the field &amp; its data</div>
+    </div>
+
+    <div class="actor platform" id="actor-platform">
+      <div class="role">Sharing Hub</div>
+      <div class="glyph">🌐</div>
+      <div class="name">CEADS Hub</div>
+      <div class="meta">the trusted sharing platform</div>
+    </div>
+
+    <div class="actor researcher" id="actor-researcher">
+      <div class="role">Data Consumer</div>
+      <div class="glyph">🔬</div>
+      <div class="name">Researcher</div>
+      <div class="meta">wants to analyse farm data</div>
+    </div>
+
+    <div class="center-ring">
+      <div class="ring sov"><div class="ring-label sov">Sovereignty</div></div>
+      <div class="ring trust"><div class="ring-label trust">Trust</div></div>
+      <div class="ring cyber"><div class="ring-label cyber">Cybersecurity</div></div>
+    </div>
+
+    <div class="step-card" id="stepCard">
+      <div class="icon" id="stepIcon">🌾</div>
+      <div class="label" id="stepLabel">Ready</div>
+      <div class="headline" id="stepHeadline">Press play to begin</div>
+    </div>
+
+    <div class="packet-dot" id="packetDot"></div>
+
+    <div class="ticker" id="ticker"></div>
+  </main>
+
+  <!-- RIGHT -->
+  <aside class="right" id="narrative">
+    <span class="narr-pill idle" id="narrPill">Getting started</span>
+    <h2 class="narr-headline" id="narrHeadline">A farmer's data, three pillars, one journey</h2>
+    <p class="narr-lead" id="narrLead">
+      This is a story about what happens when a farmer chooses to share their field data with a researcher.
+      Behind the scenes, three pillars work together to make the exchange responsible, trustworthy, and safe.
+    </p>
+
+    <div class="intro-illus" id="introIllus">
+      <div class="ico">🌾🔒🤝🛡️</div>
+      <div class="headline">Pick a scenario on the left, then press <em>Play simulation</em>.</div>
+      <div class="body">Each step is driven by one pillar, but all three contribute on every step — that's the whole point of ENTRUST's integrated framework.</div>
+    </div>
+
+    <div id="activeNarrative" style="display:none;">
+      <div class="narr-story" id="narrStory"></div>
+      <div class="narr-label">How all three pillars show up here</div>
+      <div class="pillars-play" id="pillarsPlay"></div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────────────────
+   THE STORY
+   ───────────────────────────────────────────────────────────────────────── */
+
+const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
+  "scenario": "happy_path"
+}/*EDITMODE-END*/;
+
+const SCENARIOS = {
+  happy_path: {
+    name: 'A responsible data share',
+    desc: 'A university researcher asks to use soil-moisture data to study drought resilience. Every safeguard activates as designed.',
+    outcome: { cls: 'ok', text: 'Share approved' }
+  },
+  trust_fail: {
+    name: 'An unknown requester',
+    desc: 'An unverified start-up asks for the same data. They can\'t prove who they are or evidence good intent.',
+    outcome: { cls: 'bad', text: 'Share refused' }
+  },
+  policy_fail: {
+    name: 'A broken promise',
+    desc: 'A buyer promised to use data for research, then resells it for commercial marketing. The audit trail catches it.',
+    outcome: { cls: 'partial', text: 'Access revoked' }
+  },
+  iot_attack: {
+    name: 'A tampered sensor',
+    desc: 'A field sensor is compromised at source. Anomaly detection flags the corrupted readings before they enter the chain.',
+    outcome: { cls: 'partial', text: 'Source quarantined' }
+  }
+};
+
+/* Each step has: primaryPillar, actor, move (from→to), icon, label,
+   headline (in center card), story (narrative), and per-pillar plays. */
+
+const STEPS = {
+  collect: {
+    pillar: 'cyber',
+    from: 'farmer', to: 'farmer',
+    icon: '📡',
+    label: 'Sensors collect data',
+    headline: 'Field sensors capture readings — securely',
+    story: 'Out in the field, IoT sensors quietly gather soil-moisture, temperature and yield readings. Each device proves it is genuine before any reading is accepted, and every reading is signed at the moment of capture. The data\'s story begins on the farm — not in someone else\'s cloud.',
+    plays: {
+      sov:   'The farmer owns the raw stream from the moment of capture — sovereignty starts at the sensor.',
+      trust: 'Each reading is tagged with where, when, and by which device — provenance from day one.',
+      cyber: 'Devices use secure boot and signed firmware so corrupted or fake sensors can\'t inject bad data.'
+    }
+  },
+  request: {
+    pillar: 'trust',
+    from: 'researcher', to: 'platform',
+    icon: '📨',
+    label: 'Someone asks',
+    headline: 'A researcher asks to use the farm\'s data',
+    story: 'A university researcher contacts the CEADS sharing hub: can they use soil-moisture readings from this farm to study drought resilience? Before anything else, the hub needs to understand who is asking, why, for how long, and under what European data rules.',
+    plays: {
+      sov:   'The request must declare a clear purpose, duration and legal basis — anchored in the EU Data Act and GDPR.',
+      trust: 'The researcher introduces themselves, their institution, their ethics approval and the goal of their study.',
+      cyber: 'The conversation happens over an encrypted channel with mutual authentication — no eavesdropping, no impersonation.'
+    }
+  },
+  verify: {
+    pillar: 'trust',
+    from: 'platform', to: 'researcher',
+    icon: '🔍',
+    label: 'Can we trust them?',
+    headline: 'The hub verifies the researcher is who they claim to be',
+    story: 'The hub looks up the researcher\'s digital credentials — issued by their university, ethics board and a recognised regulator. Three things have to check out: do they have the ability to do this work, do they show good intent, and do they have a track record of integrity?',
+    plays: {
+      sov:   'No verified identity means no accountability — and without accountability the farmer can\'t consent meaningfully.',
+      trust: 'The hub checks ability, benevolence and integrity — the three classic foundations of trustworthiness.',
+      cyber: 'Credentials carry tamper-proof digital signatures — they cannot be forged or quietly altered.'
+    }
+  },
+  reputation: {
+    pillar: 'trust',
+    from: 'platform', to: 'platform',
+    icon: '⭐',
+    label: 'Check the reputation',
+    headline: 'The hub checks the requester\'s history with other farmers',
+    story: 'Beyond credentials, the hub looks at how the researcher has behaved in past shares: did they respect the rules? Did they delete data on time? Did they share results back? A trust score, built collectively across the farming community, summarises their track record.',
+    plays: {
+      sov:   'Past behaviour shapes future permissions — the farmer can set thresholds on who they\'ll share with.',
+      trust: 'A community-built reputation makes trust evidence-based and visible across the ecosystem.',
+      cyber: 'Reputation history is signed and ledger-anchored, so no actor can quietly polish their own record.'
+    }
+  },
+  cooperative: {
+    pillar: 'trust',
+    from: 'farmer', to: 'farmer',
+    icon: '🧑‍🌾',
+    label: 'Ask the cooperative',
+    headline: 'The farmer\'s cooperative weighs in',
+    story: 'The farmer doesn\'t face this alone. Their cooperative — which represents many farmers in the region — has already negotiated baseline terms with researchers and reviewed this kind of request before. Their endorsement (or warning) sits alongside the request, in plain language.',
+    plays: {
+      sov:   'Collective bargaining strengthens individual sovereignty — farmers gain leverage they couldn\'t have alone.',
+      trust: 'Stakeholder participation through cooperatives keeps governance farmer-centred and legitimate.',
+      cyber: 'Cooperatives can also pool cybersecurity expertise that small farms couldn\'t resource individually.'
+    }
+  },
+  explain: {
+    pillar: 'trust',
+    from: 'platform', to: 'farmer',
+    icon: '💡',
+    label: 'Explain the impact',
+    headline: 'The farmer is shown what this share will mean',
+    story: 'Before deciding, the farmer sees a short, visual explainer: what kind of insights this study will produce, who else is involved, what the dataset will look like after privacy processing, and a worked example of how their data will (and won\'t) appear in results.',
+    plays: {
+      sov:   'Real understanding is the foundation of meaningful, GDPR-grade informed consent.',
+      trust: 'Explainability closes the readability gap that makes most data agreements practically unreadable.',
+      cyber: 'The explainer itself is signed and versioned — the exact wording the farmer saw is preserved.'
+    }
+  },
+  consent: {
+    pillar: 'sov',
+    from: 'platform', to: 'farmer',
+    icon: '❓',
+    label: 'Ask the farmer',
+    headline: 'The farmer is asked for clear, informed consent',
+    story: 'The hub asks the farmer directly — in plain language, not legalese: "AgriSci Institute wants soil-moisture data to study drought. Three months. No commercial use. OK?" The farmer is also told, in everyday words, what each option means and what it can\'t mean.',
+    plays: {
+      sov:   'The farmer holds the final say. Consent is specific, informed, time-bound, and freely revocable.',
+      trust: 'Plain-language explainability replaces legal jargon — addressing the asymmetry that puts farmers off sharing.',
+      cyber: 'The consent record is sealed cryptographically — no one can quietly rewrite what the farmer agreed to.'
+    }
+  },
+  policy: {
+    pillar: 'sov',
+    from: 'farmer', to: 'platform',
+    icon: '📜',
+    label: 'Set the rules',
+    headline: 'The farmer\'s rules travel with the data',
+    story: 'The farmer says yes — with conditions: research only, no re-sharing, delete after 90 days, keep results in the EU. These rules are wrapped around the dataset itself, not stored as a side-note. Wherever the data goes, the rules follow.',
+    plays: {
+      sov:   'Usage-control policies turn a promise into something machines must obey at every downstream step.',
+      trust: 'The researcher sees the exact rules they are agreeing to — full transparency, no fine print.',
+      cyber: 'A cryptographic seal binds the rules to the data so they can\'t be stripped off in transit.'
+    }
+  },
+  rbac: {
+    pillar: 'cyber',
+    from: 'platform', to: 'platform',
+    icon: '🔑',
+    label: 'Limit access',
+    headline: 'Only the right roles can touch the data',
+    story: 'Inside the hub, role-based access control narrows the circle: the analyst role gets read-only access to the prepared dataset, the auditor role can read the log but not the data, no one can do both. Least privilege by design.',
+    plays: {
+      sov:   'Access is shaped by the farmer\'s rules — only roles the farmer authorised can ever see anything.',
+      trust: 'Clear role boundaries make accountability obvious — every action ties back to a specific role.',
+      cyber: 'Least-privilege RBAC limits the blast radius if any single account is ever compromised.'
+    }
+  },
+  privacy: {
+    pillar: 'sov',
+    from: 'farmer', to: 'platform',
+    icon: '🧮',
+    label: 'Protect privacy',
+    headline: 'The data is processed so it cannot identify the farmer',
+    story: 'Before anything leaves the farm, the data is processed so individual readings blur into trends. The researcher will still see useful patterns about drought and soil moisture, but exact plot, exact timing, and the farmer\'s identity stay protected.',
+    plays: {
+      sov:   'The farmer keeps the raw data forever. Only a privacy-preserving version ever leaves the farm.',
+      trust: 'The researcher knows the data is mathematically anonymised — they can trust trends, not single points.',
+      cyber: 'Differential privacy adds calibrated noise to hide individuals while preserving statistical truth.'
+    }
+  },
+  secure: {
+    pillar: 'cyber',
+    from: 'platform', to: 'platform',
+    icon: '🔐',
+    label: 'Lock the package',
+    headline: 'The dataset is sealed for its journey',
+    story: 'The hub wraps the prepared dataset in an encrypted envelope addressed only to the researcher. If anyone intercepts it on the way — a hacker, a compromised network, an insider — they see nothing but gibberish. Only the intended recipient can open it.',
+    plays: {
+      sov:   'Encryption guarantees that only the approved recipient can ever read the data.',
+      trust: 'The farmer can be sure the package can\'t be opened by anyone in the middle.',
+      cyber: 'Modern, quantum-resistant encryption protects the data both in transit and at rest.'
+    }
+  },
+  deliver: {
+    pillar: 'cyber',
+    from: 'platform', to: 'researcher',
+    icon: '📦',
+    label: 'Hand it over',
+    headline: 'The researcher receives the data',
+    story: 'The sealed package arrives at the researcher\'s system. Their software automatically reads the rules that came bundled in — "research only, 90 days, no re-sharing" — confirms in writing that it will respect them, and only then opens the envelope.',
+    plays: {
+      sov:   'The researcher\'s system enforces the farmer\'s rules locally — the farmer\'s voice travels with the data.',
+      trust: 'The researcher formally acknowledges what they\'ve received and what they owe in return.',
+      cyber: 'The channel is one-way, encrypted, and logged — non-repudiation is built in.'
+    }
+  },
+  ledger: {
+    pillar: 'sov',
+    from: 'platform', to: 'platform',
+    icon: '⛓️',
+    label: 'Write to ledger',
+    headline: 'Every step is recorded in a tamper-proof ledger',
+    story: 'As the share completes, the hub writes a permanent entry to a shared ledger: who asked, what was agreed, what was sent, when. The entry is hash-chained — change one record and every later record breaks. The farmer, the regulator and any auditor can verify it.',
+    plays: {
+      sov:   'The farmer can audit the use of their data long after the share — that is real, lasting sovereignty.',
+      trust: 'A shared, verifiable record builds the confidence that encourages farmers to share again.',
+      cyber: 'Blockchain-style immutability and cryptographic hashing make any tampering instantly detectable.'
+    }
+  },
+  monitor: {
+    pillar: 'trust',
+    from: 'platform', to: 'farmer',
+    icon: '📊',
+    label: 'Stay informed',
+    headline: 'The farmer sees what happens, in plain language',
+    story: 'Days and weeks later, the farmer can open a simple dashboard: "Your data has been used 3 times. The drought study published its first results — here is a one-page summary written for you." Sovereignty is not a one-off click; it is a continuing relationship.',
+    plays: {
+      sov:   'Continued visibility means consent stays meaningful — the farmer can revoke at any time.',
+      trust: 'Plain-language summaries close the explainability gap and respect the farmer\'s time.',
+      cyber: 'Anomaly detection in the background flags any suspicious access pattern for review.'
+    }
+  },
+  results: {
+    pillar: 'trust',
+    from: 'researcher', to: 'farmer',
+    icon: '🌱',
+    label: 'Give back',
+    headline: 'The researcher shares results back with the farmer',
+    story: 'Months later the study finishes. The researcher sends back a tailored, one-page summary: which irrigation patterns held up best in the drought, what other farms saw, and a couple of practical suggestions for next season. The exchange is now reciprocal — not just extractive.',
+    plays: {
+      sov:   'Returning value to the data source rebalances the relationship — sovereignty includes benefit, not just control.',
+      trust: 'Reciprocity is one of the strongest trust-builders we have — it transforms one-off shares into long partnerships.',
+      cyber: 'The return channel is itself encrypted and authenticated — results can\'t be spoofed by a third party.'
+    }
+  },
+
+  /* failure branches */
+  reject: {
+    pillar: 'trust',
+    from: 'platform', to: 'researcher',
+    icon: '🚫',
+    label: 'Not enough trust',
+    headline: 'The request is politely refused',
+    story: 'The start-up can\'t prove who they are. No recognised institution vouches for them, their stated purpose is vague, and they have no track record. The hub declines the request — no data leaves the farm, and the farmer is never even bothered.',
+    plays: {
+      sov:   'Without verified identity, the farmer has no way to hold anyone accountable — so no consent is possible.',
+      trust: 'Trust requires evidence of ability, good intent, and integrity. None could be shown here.',
+      cyber: 'No exchange means no attack surface — the safest share is the one that never happens.'
+    }
+  },
+  violation: {
+    pillar: 'sov',
+    from: 'researcher', to: 'farmer',
+    icon: '⚠️',
+    label: 'Rule broken',
+    headline: 'The audit ledger catches a violation',
+    story: 'Weeks later, monitoring spots that the buyer has passed the dataset to a commercial partner — breaking the "research only, no re-sharing" rule. Because the rules travelled with the data and the ledger remembers everything, the breach is provable, the buyer\'s access is revoked, and a warning travels with their reputation.',
+    plays: {
+      sov:   'The signed rules made this a detectable, provable breach — not a he-said-she-said dispute.',
+      trust: 'The buyer\'s reputation drops sharply, warning other farmers before they share with them.',
+      cyber: 'A revocation broadcast invalidates the keys, so previously-delivered copies become unusable going forward.'
+    }
+  },
+  iot_alert: {
+    pillar: 'cyber',
+    from: 'farmer', to: 'platform',
+    icon: '🛰️',
+    label: 'Tampered sensor',
+    headline: 'A sensor is detected as compromised',
+    story: 'A field sensor starts emitting readings that don\'t match the surrounding pattern. AI-driven anomaly detection at the edge flags the device, isolates it from the data stream, and refuses to sign its readings. Nothing corrupted ever enters the share chain.',
+    plays: {
+      sov:   'Sovereignty starts at the sensor — only verified, healthy devices contribute to the farmer\'s dataset.',
+      trust: 'Trustworthy data depends on trustworthy collection — quarantine preserves the integrity of every later step.',
+      cyber: 'Anomaly detection plus device attestation catches tampering before it pollutes anything downstream.'
+    }
+  },
+  quarantine: {
+    pillar: 'sov',
+    from: 'platform', to: 'farmer',
+    icon: '🧰',
+    label: 'Notify and recover',
+    headline: 'The farmer is alerted and the device is replaced',
+    story: 'The farmer receives a clear notification: "Sensor #4 looks tampered with. We have stopped using it. Here is what to check." The audit ledger logs the incident, the affected readings are flagged, and any downstream user is notified that part of their dataset may be unreliable.',
+    plays: {
+      sov:   'The farmer is informed first, in their own language — they decide what to do next.',
+      trust: 'Open incident reporting strengthens trust rather than damaging it — honesty over silence.',
+      cyber: 'A coordinated incident-response loop closes the gap before more damage can be done.'
+    }
+  }
+};
+
+const FLOWS = {
+  happy_path: ['collect','request','verify','reputation','cooperative','explain','consent','policy','rbac','privacy','secure','deliver','ledger','monitor','results'],
+  trust_fail: ['collect','request','verify','reputation','reject'],
+  policy_fail: ['collect','request','verify','reputation','cooperative','explain','consent','policy','rbac','privacy','secure','deliver','ledger','violation'],
+  iot_attack: ['collect','iot_alert','quarantine','ledger']
+};
+
+/* ─────────────────────────────────────────────────────────────────────── */
+let state = { scenario: TWEAK_DEFAULS.scenario, idx: -1, playing: false, timer: null };
+
+function $(id) { return document.getElementById(id); }
+
+function renderScenarios() {
+  const wrap = $('scenarios');
+  wrap.innerHTML = '';
+  Object.entries(SCENARIOS).forEach(([key, sc]) => {
+    const el = document.createElement('div');
+    el.className = 'scenario' + (state.scenario === key ? ' active' : '');
+    el.innerHTML = `
+      <div class="name">${sc.name}</div>
+      <div class="desc">${sc.desc}</div>
+      <span class="outcome ${sc.outcome.cls}">${sc.outcome.text}</span>
+    `;
+    el.onclick = () => { state.scenario = key; reset(); };
+    wrap.appendChild(el);
+  });
+}
+
+function renderTicker() {
+  const flow = FLOWS[state.scenario];
+  const t = $('ticker');
+  t.innerHTML = '';
+  flow.forEach((key, i) => {
+    const s = STEPS[key];
+    const el = document.createElement('div');
+    el.className = 'tick';
+    if (i < state.idx) el.classList.add('done');
+    if (i === state.idx) {
+      el.classList.add('active', s.pillar);
+      el.id = 'active-tick';
+    }
+    el.textContent = i + 1;
+    el.title = s.headline;
+    el.onclick = () => jumpTo(i);
+    el.style.cursor = 'pointer';
+    t.appendChild(el);
+  });
+  // Keep the active dot in view without using scrollIntoView
+  const active = document.getElementById('active-tick');
+  if (active) {
+    const tRect = t.getBoundingClientRect();
+    const aRect = active.getBoundingClientRect();
+    if (aRect.right > tRect.right - 8) {
+      t.scrollLeft += (aRect.right - tRect.right + 24);
+    } else if (aRect.left < tRect.left + 8) {
+      t.scrollLeft -= (tRect.left - aRect.left + 24);
+    }
+  }
+}
+
+function actorCenter(key) {
+  const s = $('stage').getBoundingClientRect();
+  const r = $('actor-' + key).getBoundingClientRect();
+  return { x: r.left - s.left + r.width / 2, y: r.top - s.top + r.height / 2 };
+}
+
+function drawConnectors() {
+  const svg = $('stageSvg');
+  const s = $('stage').getBoundingClientRect();
+  svg.setAttribute('viewBox', `0 0 ${s.width} ${s.height}`);
+  const pairs = [['farmer','platform'],['platform','researcher'],['farmer','researcher']];
+  svg.innerHTML = pairs.map(([a,b]) => {
+    const pa = actorCenter(a), pb = actorCenter(b);
+    return `<line x1="${pa.x}" y1="${pa.y}" x2="${pb.x}" y2="${pb.y}" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,6"/>`;
+  }).join('');
+}
+
+function highlightActors(from, to, pillar) {
+  ['farmer','platform','researcher'].forEach(k => {
+    $('actor-' + k).classList.remove('highlight','sov','trust','cyber');
+  });
+  if (from) $('actor-' + from).classList.add('highlight', pillar);
+  if (to && to !== from) $('actor-' + to).classList.add('highlight', pillar);
+}
+
+function highlightRing(pillar) {
+  ['sov','trust','cyber'].forEach(p => {
+    document.querySelector('.ring.' + p).classList.remove('active');
+  });
+  if (pillar) document.querySelector('.ring.' + pillar).classList.add('active');
+}
+
+function movePacket(fromKey, toKey, pillar) {
+  const dot = $('packetDot');
+  dot.classList.remove('sov','trust','cyber');
+  dot.classList.add('show', pillar);
+  const from = actorCenter(fromKey);
+  dot.style.left = from.x + 'px';
+  dot.style.top = from.y + 'px';
+  setTimeout(() => {
+    const to = actorCenter(toKey);
+    dot.style.left = to.x + 'px';
+    dot.style.top = to.y + 'px';
+  }, 60);
+}
+
+function showStepCard(step) {
+  const c = $('stepCard');
+  c.classList.remove('sov','trust','cyber');
+  c.classList.add('show', step.pillar);
+  $('stepIcon').textContent = step.icon;
+  $('stepLabel').textContent = step.label;
+  $('stepHeadline').textContent = step.headline;
+}
+
+function renderNarrative(stepKey) {
+  if (!stepKey) {
+    $('introIllus').style.display = 'block';
+    $('activeNarrative').style.display = 'none';
+    $('narrPill').className = 'narr-pill idle';
+    $('narrPill').textContent = 'Getting started';
+    $('narrHeadline').textContent = "A farmer's data, three pillars, one journey";
+    $('narrLead').innerHTML = "This is a story about what happens when a farmer chooses to share their field data with a researcher. Behind the scenes, three pillars work together to make the exchange responsible, trustworthy, and safe.";
+    return;
+  }
+  const s = STEPS[stepKey];
+  const pillarName = { sov: 'Sovereignty', trust: 'Trust', cyber: 'Cybersecurity' }[s.pillar];
+
+  $('introIllus').style.display = 'none';
+  $('activeNarrative').style.display = 'block';
+
+  $('narrPill').className = 'narr-pill ' + s.pillar;
+  $('narrPill').textContent = 'Led by ' + pillarName;
+  $('narrHeadline').textContent = s.headline;
+  $('narrLead').textContent = s.label + '.';
+
+  const story = $('narrStory');
+  story.className = 'narr-story ' + s.pillar;
+  story.textContent = s.story;
+
+  const rows = $('pillarsPlay');
+  rows.innerHTML = `
+    <div class="play-row sov ${s.pillar === 'sov' ? 'active' : ''}">
+      <span class="lbl">🔒 Sovereignty</span>${s.plays.sov}
+    </div>
+    <div class="play-row trust ${s.pillar === 'trust' ? 'active' : ''}">
+      <span class="lbl">🤝 Trust</span>${s.plays.trust}
+    </div>
+    <div class="play-row cyber ${s.pillar === 'cyber' ? 'active' : ''}">
+      <span class="lbl">🛡️ Cybersecurity</span>${s.plays.cyber}
+    </div>
+  `;
+}
+
+function updateProgress() {
+  const flow = FLOWS[state.scenario];
+  const pct = state.idx < 0 ? 0 : ((state.idx + 1) / flow.length) * 100;
+  $('progress').style.width = pct + '%';
+  const p = state.idx >= 0 ? STEPS[flow[state.idx]].pillar : 'sov';
+  const color = { sov: 'var(--sov)', trust: 'var(--trust)', cyber: 'var(--cyber)' }[p];
+  $('progress').style.background = color;
+}
+
+function executeStep(key) {
+  const s = STEPS[key];
+  showStepCard(s);
+  highlightActors(s.from, s.to, s.pillar);
+  highlightRing(s.pillar);
+  if (s.from !== s.to) movePacket(s.from, s.to, s.pillar);
+  else {
+    const dot = $('packetDot');
+    dot.classList.remove('sov','trust','cyber');
+    dot.classList.add('show', s.pillar);
+    const p = actorCenter(s.from);
+    dot.style.left = p.x + 'px';
+    dot.style.top = p.y + 'px';
+  }
+  renderNarrative(key);
+  renderTicker();
+  updateProgress();
+}
+
+function jumpTo(i) {
+  pause();
+  const flow = FLOWS[state.scenario];
+  if (i < 0 || i >= flow.length) return;
+  state.idx = i;
+  executeStep(flow[i]);
+}
+
+function stepOnce() {
+  const flow = FLOWS[state.scenario];
+  if (state.idx >= flow.length - 1) { state.playing = false; updatePlayBtn(); return false; }
+  state.idx++;
+  executeStep(flow[state.idx]);
+  return true;
+}
+
+function play() {
+  if (state.idx >= FLOWS[state.scenario].length - 1) reset();
+  state.playing = true;
+  updatePlayBtn();
+  const tick = () => {
+    if (!state.playing) return;
+    const cont = stepOnce();
+    if (cont) state.timer = setTimeout(tick, 2600);
+    else { state.playing = false; updatePlayBtn(); }
+  };
+  tick();
+}
+
+function pause() {
+  state.playing = false;
+  if (state.timer) clearTimeout(state.timer);
+  updatePlayBtn();
+}
+
+function updatePlayBtn() {
+  $('playBtn').textContent = state.playing ? '⏸ Pause' : '▶ Play simulation';
+}
+
+function reset() {
+  pause();
+  state.idx = -1;
+  highlightActors(null, null, null);
+  highlightRing(null);
+  $('packetDot').classList.remove('show','sov','trust','cyber');
+  $('stepCard').classList.remove('show','sov','trust','cyber');
+  $('stepIcon').textContent = '🌾';
+  $('stepLabel').textContent = 'Ready';
+  $('stepHeadline').textContent = 'Press play to begin';
+  renderScenarios();
+  renderTicker();
+  renderNarrative(null);
+  updateProgress();
+}
+
+$('playBtn').onclick = () => state.playing ? pause() : play();
+$('stepBtn').onclick = () => { pause(); stepOnce(); };
+$('resetBtn').onclick = reset;
+
+window.addEventListener('resize', drawConnectors);
+window.addEventListener('load', () => {
+  drawConnectors();
+  reset();
+});
+
+/* Tweaks protocol */
+window.addEventListener('message', (e) => {
+  if (!e.data || typeof e.data !== 'object') return;
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+</script>
+</body>
+</html>
